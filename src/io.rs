@@ -174,6 +174,26 @@ macro_rules! prewarnln {
     ($prefix:expr, $($arg:tt)*) => { precustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
 }
 
+#[macro_export]
+macro_rules! success {
+    ($($arg:tt)*) => { custom!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! successln {
+    ($($arg:tt)*) => { customln!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! presuccess {
+    ($prefix:expr, $($arg:tt)*) => { precustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! presuccessln {
+    ($prefix:expr, $($arg:tt)*) => { precustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+}
+
 #[cfg(test)]
 mod tests {
     use colored::*;
@@ -216,6 +236,26 @@ mod tests {
         assert_eq!(
             prewarnln!("prewarnln", "some formatting {}", 123),
             "\u{1b}[2m[prewarnln]\u{1b}[0m \u{1b}[1;33m⚠️\u{1b}[0m some formatting 123\n"
+        );
+    }
+
+    #[test]
+    fn success() {
+        assert_eq!(
+            success!("test success"),
+            "\u{1b}[1;92m✅\u{1b}[0m test success"
+        );
+        assert_eq!(
+            successln!("test successln"),
+            "\u{1b}[1;92m✅\u{1b}[0m test successln\n"
+        );
+        assert_eq!(
+            presuccess!("presuccess", "some formatting {}", 12.333 as f32),
+            "\u{1b}[2m[presuccess]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 12.333"
+        );
+        assert_eq!(
+            presuccessln!("presuccessln", "some formatting {}", 123),
+            "\u{1b}[2m[presuccessln]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 123\n"
         );
     }
 }
