@@ -113,7 +113,7 @@ macro_rules! scopecustomln {
 /// ```
 #[macro_export]
 macro_rules! info {
-    ($($arg:tt)*) => { custom!(crate::io::marks::INFO, $($arg)*) }
+    ($($arg:tt)*) => { custom!($crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints info log message to stderr with a new line.
@@ -127,7 +127,7 @@ macro_rules! info {
 /// ```
 #[macro_export]
 macro_rules! infoln {
-    ($($arg:tt)*) => { customln!(crate::io::marks::INFO, $($arg)*) }
+    ($($arg:tt)*) => { customln!($crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints log message to stderr without a new line, with a specified prefix.
@@ -142,7 +142,7 @@ macro_rules! infoln {
 /// ```
 #[macro_export]
 macro_rules! scopeinfo {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::INFO, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints log message to stderr with a new line, with a specified prefix.
@@ -157,67 +157,67 @@ macro_rules! scopeinfo {
 /// ```
 #[macro_export]
 macro_rules! scopeinfoln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::INFO, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::INFO, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warn {
-    ($($arg:tt)*) => { custom!(crate::io::marks::WARN, $($arg)*) }
+    ($($arg:tt)*) => { custom!($crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warnln {
-    ($($arg:tt)*) => { customln!(crate::io::marks::WARN, $($arg)*) }
+    ($($arg:tt)*) => { customln!($crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarn {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::WARN, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarnln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::WARN, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! success {
-    ($($arg:tt)*) => { custom!(crate::io::marks::SUCCESS, $($arg)*) }
+    ($($arg:tt)*) => { custom!($crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! successln {
-    ($($arg:tt)*) => { customln!(crate::io::marks::SUCCESS, $($arg)*) }
+    ($($arg:tt)*) => { customln!($crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccess {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::SUCCESS, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccessln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::SUCCESS, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! error {
-    ($($arg:tt)*) => { custom!(crate::io::marks::ERROR, $($arg)*) }
+    ($($arg:tt)*) => { custom!($crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! errorln {
-    ($($arg:tt)*) => { customln!(crate::io::marks::ERROR, $($arg)*) }
+    ($($arg:tt)*) => { customln!($crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerror {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::ERROR, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerrorln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::ERROR, $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[cfg(test)]
