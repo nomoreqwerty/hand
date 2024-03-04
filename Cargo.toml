@@ -1,7 +1,12 @@
 [package]
 name = "hand"
+authors = ["nomoreqwerty <nomoreqwerty@tuta.io>"]
+license = "MIT"
+repository = "https://github.com/nomoreqwerty/hand"
+homepage = "https://github.com/nomoreqwerty/hand"
 version = "0.1.0"
 edition = "2021"
+description = "Easy to use, pretty cmd log for lazy devs"
 
 [dependencies]
 colored = "2.1.0"
