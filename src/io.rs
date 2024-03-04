@@ -1,4 +1,3 @@
-use colored::*;
 /// Prints log message to stderr with a custom head without new line.
 ///
 /// # Examples
@@ -14,7 +13,7 @@ use colored::*;
 #[cfg(not(test))]
 #[macro_export]
 macro_rules! custom {
-    ($head:expr, $($arg:tt)*) => { eprint!("{} {}", $head, format_args!($($arg)*)); }
+    ($head:expr, $($arg:tt)*) => { eprint!("{} {}", $head, format_args!($($arg)*)) }
 }
 
 #[cfg(test)]
@@ -36,14 +35,14 @@ macro_rules! custom {
 #[cfg(not(test))]
 #[macro_export]
 macro_rules! customln {
-    ($head:expr, $($arg:tt)*) => { eprintln!("{} {}", $head, format_args!($($arg)*)); }
+    ($head:expr, $($arg:tt)*) => { eprintln!("{} {}", $head, format_args!($($arg)*)) }
 }
 
 #[cfg(test)]
 macro_rules! customln {
     ($head:expr, $($arg:tt)*) => {
         format!("{} {}\n", $head, format_args!($($arg)*))
-    };
+    }
 }
 
 /// Prints log message to stderr with a custom prefix and head without new line.
@@ -60,15 +59,15 @@ macro_rules! customln {
 #[macro_export]
 macro_rules! scopecustom {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
-        eprint!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*));
-    };
+        eprint!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*))
+    }
 }
 
 #[cfg(test)]
 macro_rules! scopecustom {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         format!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*))
-    };
+    }
 }
 
 /// Prints log message to stderr with a custom prefix and head with new line.
@@ -85,15 +84,15 @@ macro_rules! scopecustom {
 #[macro_export]
 macro_rules! scopecustomln {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
-        eprintln!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*));
-    };
+        eprintln!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*))
+    }
 }
 
 #[cfg(test)]
 macro_rules! scopecustomln {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         format!("\u{1b}[2m[{}]\u{1b}[0m {} {}\n", $prefix, $head, format_args!($($arg)*))
-    };
+    }
 }
 
 /// Prints info log message to stderr without new line.
@@ -107,7 +106,7 @@ macro_rules! scopecustomln {
 /// ```
 #[macro_export]
 macro_rules! info {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+    ($($arg:tt)*) => { custom!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
 }
 
 /// Prints info log message to stderr with a new line.
@@ -121,7 +120,7 @@ macro_rules! info {
 /// ```
 #[macro_export]
 macro_rules! infoln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+    ($($arg:tt)*) => { customln!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
 }
 
 /// Prints log message to stderr without a new line, with a specified prefix.
@@ -136,7 +135,7 @@ macro_rules! infoln {
 /// ```
 #[macro_export]
 macro_rules! scopeinfo {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
 }
 
 /// Prints log message to stderr with a new line, with a specified prefix.
@@ -151,67 +150,67 @@ macro_rules! scopeinfo {
 /// ```
 #[macro_export]
 macro_rules! scopeinfoln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warn {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+    ($($arg:tt)*) => { custom!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warnln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+    ($($arg:tt)*) => { customln!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarn {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarnln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! success {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+    ($($arg:tt)*) => { custom!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! successln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+    ($($arg:tt)*) => { customln!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccess {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccessln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! error {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+    ($($arg:tt)*) => { custom!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! errorln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+    ($($arg:tt)*) => { customln!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerror {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerrorln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
 }
 
 #[cfg(test)]
