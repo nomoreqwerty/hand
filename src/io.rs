@@ -1,3 +1,10 @@
+pub mod marks {
+    pub const INFO: &str = "\u{1b}[1;94mℹ\u{1b}[0m";
+    pub const WARN: &str = "\u{1b}[1;33m⚠\u{1b}[0m";
+    pub const ERROR: &str = "\u{1b}[1;91m❌\u{1b}[0m";
+    pub const SUCCESS: &str = "\u{1b}[1;92m✅\u{1b}[0m";
+}
+
 /// Prints log message to stderr with a custom head without new line.
 ///
 /// # Examples
@@ -106,7 +113,7 @@ macro_rules! scopecustomln {
 /// ```
 #[macro_export]
 macro_rules! info {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { custom!(crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints info log message to stderr with a new line.
@@ -120,7 +127,7 @@ macro_rules! info {
 /// ```
 #[macro_export]
 macro_rules! infoln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { customln!(crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints log message to stderr without a new line, with a specified prefix.
@@ -135,7 +142,7 @@ macro_rules! infoln {
 /// ```
 #[macro_export]
 macro_rules! scopeinfo {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::INFO, $($arg)*) }
 }
 
 /// Prints log message to stderr with a new line, with a specified prefix.
@@ -150,72 +157,101 @@ macro_rules! scopeinfo {
 /// ```
 #[macro_export]
 macro_rules! scopeinfoln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::INFO, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warn {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { custom!(crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! warnln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { customln!(crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarn {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopewarnln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::WARN, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! success {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { custom!(crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! successln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { customln!(crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccess {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopesuccessln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::SUCCESS, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! error {
-    ($($arg:tt)*) => { custom!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { custom!(crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! errorln {
-    ($($arg:tt)*) => { customln!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
+    ($($arg:tt)*) => { customln!(crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerror {
-    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[macro_export]
 macro_rules! scopeerrorln {
-    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*) }
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, crate::io::marks::ERROR, $($arg)*) }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::*;
+
+    #[test]
+    fn output() {
+        println!("\nOUTPUTS\n");
+
+        print!("{}", info!("info\n"));
+        print!("{}", infoln!("infoln"));
+        print!("{}", scopeinfo!("scope", "scopeinfo\n"));
+        print!("{}", scopeinfoln!("scope", "scopeinfoln"));
+
+        print!("{}", warn!("warn\n"));
+        print!("{}", warnln!("warnln"));
+        print!("{}", scopewarn!("scope", "scopewarn\n"));
+        print!("{}", scopewarnln!("scope", "scopewarnln"));
+
+        print!("{}", success!("success\n"));
+        print!("{}", successln!("successln"));
+        print!("{}", scopesuccess!("scope", "scopesuccess\n"));
+        print!("{}", scopesuccessln!("scope", "scopesuccessln"));
+
+        print!("{}", error!("error\n"));
+        print!("{}", errorln!("errorln"));
+        print!("{}", scopeerror!("scope", "scopeerror\n"));
+        print!("{}", scopeerrorln!("scope", "scopeerrorln"));
+
+        println!("\n");
+
+        assert!(false);
+    }
 
     #[test]
     fn info() {
@@ -241,19 +277,19 @@ mod tests {
     fn warn() {
         assert_eq!(
             warn!("test warn"),
-            "\u{1b}[1;33m⚠️\u{1b}[0m test warn"
+            "\u{1b}[1;33m⚠\u{1b}[0m test warn"
         );
         assert_eq!(
             warnln!("test warnln"),
-            "\u{1b}[1;33m⚠️\u{1b}[0m test warnln\n"
+            "\u{1b}[1;33m⚠\u{1b}[0m test warnln\n"
         );
         assert_eq!(
             scopewarn!("prewarn", "some formatting {}", 12.333 as f32),
-            "\u{1b}[2m[prewarn]\u{1b}[0m \u{1b}[1;33m⚠️\u{1b}[0m some formatting 12.333"
+            "\u{1b}[2m[prewarn]\u{1b}[0m \u{1b}[1;33m⚠\u{1b}[0m some formatting 12.333"
         );
         assert_eq!(
             scopewarnln!("prewarnln", "some formatting {}", 123),
-            "\u{1b}[2m[prewarnln]\u{1b}[0m \u{1b}[1;33m⚠️\u{1b}[0m some formatting 123\n"
+            "\u{1b}[2m[prewarnln]\u{1b}[0m \u{1b}[1;33m⚠\u{1b}[0m some formatting 123\n"
         );
     }
 
