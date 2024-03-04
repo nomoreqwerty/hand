@@ -53,19 +53,19 @@ macro_rules! customln {
 /// use hand::*;
 /// use colored::*;
 ///
-/// precustom!("Fetching", "🌐", "fetching data from {} ... ", "www.example.com"); // [Fetching] 🌐 fetching data from www.example.com ...
-/// precustom!("Scanning", "🚨".bright_red().bold(), "{} viruses detected ... ", 3); // [Scanning] 🚨 3 viruses detected ...
+/// scopecustom!("Fetching", "🌐", "fetching data from {} ... ", "www.example.com"); // [Fetching] 🌐 fetching data from www.example.com ...
+/// scopecustom!("Scanning", "🚨".bright_red().bold(), "{} viruses detected ... ", 3); // [Scanning] 🚨 3 viruses detected ...
 /// ```
 #[cfg(not(test))]
 #[macro_export]
-macro_rules! precustom {
+macro_rules! scopecustom {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         eprint!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*));
     };
 }
 
 #[cfg(test)]
-macro_rules! precustom {
+macro_rules! scopecustom {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         format!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*))
     };
@@ -78,19 +78,19 @@ macro_rules! precustom {
 /// ```
 /// use hand::*;
 ///
-/// precustomln!("Phone", "🔋", "charging is done"); // [Phone] 🔋 charging is done
-/// precustomln!("www.download.com", "💾", "file saved to {}", "./downloads"); // [www.download.com] 💾 file saved to ./downloads
+/// scopecustomln!("Phone", "🔋", "charging is done"); // [Phone] 🔋 charging is done
+/// scopecustomln!("www.download.com", "💾", "file saved to {}", "./downloads"); // [www.download.com] 💾 file saved to ./downloads
 /// ```
 #[cfg(not(test))]
 #[macro_export]
-macro_rules! precustomln {
+macro_rules! scopecustomln {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         eprintln!("\u{1b}[2m[{}]\u{1b}[0m {} {}", $prefix, $head, format_args!($($arg)*));
     };
 }
 
 #[cfg(test)]
-macro_rules! precustomln {
+macro_rules! scopecustomln {
     ($prefix:expr, $head:expr, $($arg:tt)*) => {
         format!("\u{1b}[2m[{}]\u{1b}[0m {} {}\n", $prefix, $head, format_args!($($arg)*))
     };
@@ -131,12 +131,12 @@ macro_rules! infoln {
 /// ```
 /// use hand::*;
 ///
-/// preinfo!("working hard", "long time no see ..."); // [working hard] ℹ long time no see ...
-/// preinfo!("eta: 1 hour", "waiting file `{}` to download ... ", "tlauncher.exe"); // [eta: 1 hour] ℹ waiting file `tlauncher.exe` to download ...
+/// scopeinfo!("working hard", "long time no see ..."); // [working hard] ℹ long time no see ...
+/// scopeinfo!("eta: 1 hour", "waiting file `{}` to download ... ", "tlauncher.exe"); // [eta: 1 hour] ℹ waiting file `tlauncher.exe` to download ...
 /// ```
 #[macro_export]
-macro_rules! preinfo {
-    ($prefix:expr, $($arg:tt)*) => { precustom!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+macro_rules! scopeinfo {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
 }
 
 /// Prints log message to stderr with a new line, with a specified prefix.
@@ -146,12 +146,12 @@ macro_rules! preinfo {
 /// ```
 /// use hand::*;
 ///
-/// preinfoln!("Building", "Not completed"); // [Building] ℹ Not completed
-/// preinfoln!("Dogs", "Dogs are {}", if true { "good" } else { "bad" }); // [Dogs] ℹ Dogs are good
+/// scopeinfoln!("Building", "Not completed"); // [Building] ℹ Not completed
+/// scopeinfoln!("Dogs", "Dogs are {}", if true { "good" } else { "bad" }); // [Dogs] ℹ Dogs are good
 /// ```
 #[macro_export]
-macro_rules! preinfoln {
-    ($prefix:expr, $($arg:tt)*) => { precustomln!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
+macro_rules! scopeinfoln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;94mℹ\u{1b}[0m", $($arg)*); }
 }
 
 #[macro_export]
@@ -165,13 +165,13 @@ macro_rules! warnln {
 }
 
 #[macro_export]
-macro_rules! prewarn {
-    ($prefix:expr, $($arg:tt)*) => { precustom!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+macro_rules! scopewarn {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
 }
 
 #[macro_export]
-macro_rules! prewarnln {
-    ($prefix:expr, $($arg:tt)*) => { precustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
+macro_rules! scopewarnln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;33m⚠️\u{1b}[0m", $($arg)*); }
 }
 
 #[macro_export]
@@ -185,18 +185,37 @@ macro_rules! successln {
 }
 
 #[macro_export]
-macro_rules! presuccess {
-    ($prefix:expr, $($arg:tt)*) => { precustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+macro_rules! scopesuccess {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
 }
 
 #[macro_export]
-macro_rules! presuccessln {
-    ($prefix:expr, $($arg:tt)*) => { precustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+macro_rules! scopesuccessln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;92m✅\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! error {
+    ($($arg:tt)*) => { custom!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! errorln {
+    ($($arg:tt)*) => { customln!("\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! scopeerror {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
+}
+
+#[macro_export]
+macro_rules! scopeerrorln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, "\u{1b}[1;91m❌\u{1b}[0m", $($arg)*); };
 }
 
 #[cfg(test)]
 mod tests {
-    use colored::*;
     use crate::*;
 
     #[test]
@@ -210,11 +229,11 @@ mod tests {
             "\u{1b}[1;94mℹ\u{1b}[0m test infoln\n"
         );
         assert_eq!(
-            preinfo!("preinfo", "some formatting {}", 12.333 as f32),
+            scopeinfo!("preinfo", "some formatting {}", 12.333 as f32),
             "\u{1b}[2m[preinfo]\u{1b}[0m \u{1b}[1;94mℹ\u{1b}[0m some formatting 12.333"
         );
         assert_eq!(
-            preinfoln!("preinfoln", "some formatting {}", 123),
+            scopeinfoln!("preinfoln", "some formatting {}", 123),
             "\u{1b}[2m[preinfoln]\u{1b}[0m \u{1b}[1;94mℹ\u{1b}[0m some formatting 123\n"
         );
     }
@@ -230,11 +249,11 @@ mod tests {
             "\u{1b}[1;33m⚠️\u{1b}[0m test warnln\n"
         );
         assert_eq!(
-            prewarn!("prewarn", "some formatting {}", 12.333 as f32),
+            scopewarn!("prewarn", "some formatting {}", 12.333 as f32),
             "\u{1b}[2m[prewarn]\u{1b}[0m \u{1b}[1;33m⚠️\u{1b}[0m some formatting 12.333"
         );
         assert_eq!(
-            prewarnln!("prewarnln", "some formatting {}", 123),
+            scopewarnln!("prewarnln", "some formatting {}", 123),
             "\u{1b}[2m[prewarnln]\u{1b}[0m \u{1b}[1;33m⚠️\u{1b}[0m some formatting 123\n"
         );
     }
@@ -250,12 +269,32 @@ mod tests {
             "\u{1b}[1;92m✅\u{1b}[0m test successln\n"
         );
         assert_eq!(
-            presuccess!("presuccess", "some formatting {}", 12.333 as f32),
+            scopesuccess!("presuccess", "some formatting {}", 12.333 as f32),
             "\u{1b}[2m[presuccess]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 12.333"
         );
         assert_eq!(
-            presuccessln!("presuccessln", "some formatting {}", 123),
+            scopesuccessln!("presuccessln", "some formatting {}", 123),
             "\u{1b}[2m[presuccessln]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 123\n"
+        );
+    }
+
+    #[test]
+    fn error() {
+        assert_eq!(
+            error!("test error"),
+            "\u{1b}[1;91m❌\u{1b}[0m test error"
+        );
+        assert_eq!(
+            errorln!("test errorln"),
+            "\u{1b}[1;91m❌\u{1b}[0m test errorln\n"
+        );
+        assert_eq!(
+            scopeerror!("preerror", "some formatting {}", 12.333 as f32),
+            "\u{1b}[2m[preerror]\u{1b}[0m \u{1b}[1;91m❌\u{1b}[0m some formatting 12.333"
+        );
+        assert_eq!(
+            scopeerrorln!("preerrorln", "some formatting {}", 123),
+            "\u{1b}[2m[preerrorln]\u{1b}[0m \u{1b}[1;91m❌\u{1b}[0m some formatting 123\n"
         );
     }
 }
