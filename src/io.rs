@@ -391,34 +391,40 @@ macro_rules! scopewaitln {
 #[cfg(test)]
 mod tests {
     use crate::*;
+    use super::marks;
 
     #[test]
     fn output() {
         println!("\nOUTPUTS\n");
 
-        print!("{}", info!("info\n"));
+        print!("{} => same line\n", info!("info"));
         print!("{}", infoln!("infoln"));
-        print!("{}", scopeinfo!("scope", "scopeinfo\n"));
+        print!("{} => same line\n", scopeinfo!("scope", "scopeinfo"));
         print!("{}", scopeinfoln!("scope", "scopeinfoln"));
 
-        print!("{}", warn!("warn\n"));
+        print!("{} => same line\n", warn!("warn"));
         print!("{}", warnln!("warnln"));
-        print!("{}", scopewarn!("scope", "scopewarn\n"));
+        print!("{} => same line\n", scopewarn!("scope", "scopewarn"));
         print!("{}", scopewarnln!("scope", "scopewarnln"));
 
-        print!("{}", success!("success\n"));
+        print!("{} => same line\n", success!("success"));
         print!("{}", successln!("successln"));
-        print!("{}", scopesuccess!("scope", "scopesuccess\n"));
+        print!("{} => same line\n", scopesuccess!("scope", "scopesuccess"));
         print!("{}", scopesuccessln!("scope", "scopesuccessln"));
 
-        print!("{}", error!("error\n"));
+        print!("{} => same line\n", wait!("wait"));
+        print!("{}", waitln!("waitln"));
+        print!("{} => same line\n", scopewait!("scope", "scopewait"));
+        print!("{}", scopewaitln!("scope", "scopewaitln"));
+
+        print!("{} => same line\n", error!("error"));
         print!("{}", errorln!("errorln"));
-        print!("{}", scopeerror!("scope", "scopeerror\n"));
+        print!("{} => same line\n", scopeerror!("scope", "scopeerror"));
         print!("{}", scopeerrorln!("scope", "scopeerrorln"));
 
         println!("\n");
 
-        // remove dashes to show the output
+        // // remove dashes to show the output
         // assert!(false);
     }
 
@@ -426,19 +432,19 @@ mod tests {
     fn info() {
         assert_eq!(
             info!("test info"),
-            "\u{1b}[1;94mℹ\u{1b}[0m test info"
+            format!("{} test info", marks::INFO)
         );
         assert_eq!(
             infoln!("test infoln"),
-            "\u{1b}[1;94mℹ\u{1b}[0m test infoln\n"
+            format!("{} test infoln\n", marks::INFO)
         );
         assert_eq!(
             scopeinfo!("preinfo", "some formatting {}", 12.333 as f32),
-            "\u{1b}[2m[preinfo]\u{1b}[0m \u{1b}[1;94mℹ\u{1b}[0m some formatting 12.333"
+            format!("\u{1b}[2m[preinfo]\u{1b}[0m {} some formatting 12.333", marks::INFO)
         );
         assert_eq!(
             scopeinfoln!("preinfoln", "some formatting {}", 123),
-            "\u{1b}[2m[preinfoln]\u{1b}[0m \u{1b}[1;94mℹ\u{1b}[0m some formatting 123\n"
+            format!("\u{1b}[2m[preinfoln]\u{1b}[0m {} some formatting 123\n", marks::INFO)
         );
     }
 
@@ -446,39 +452,39 @@ mod tests {
     fn warn() {
         assert_eq!(
             warn!("test warn"),
-            "\u{1b}[1;33m⚠\u{1b}[0m test warn"
+            format!("{} test warn", marks::WARN)
         );
         assert_eq!(
             warnln!("test warnln"),
-            "\u{1b}[1;33m⚠\u{1b}[0m test warnln\n"
+            format!("{} test warnln\n", marks::WARN)
         );
         assert_eq!(
             scopewarn!("prewarn", "some formatting {}", 12.333 as f32),
-            "\u{1b}[2m[prewarn]\u{1b}[0m \u{1b}[1;33m⚠\u{1b}[0m some formatting 12.333"
+            format!("\u{1b}[2m[prewarn]\u{1b}[0m {} some formatting 12.333", marks::WARN)
         );
         assert_eq!(
             scopewarnln!("prewarnln", "some formatting {}", 123),
-            "\u{1b}[2m[prewarnln]\u{1b}[0m \u{1b}[1;33m⚠\u{1b}[0m some formatting 123\n"
+            format!("\u{1b}[2m[prewarnln]\u{1b}[0m {} some formatting 123\n", marks::WARN)
         );
     }
 
     #[test]
     fn success() {
         assert_eq!(
-            success!("test success"),
-            "\u{1b}[1;92m✅\u{1b}[0m test success"
+            format!("{} => {}", success!("test success"), "same line"),
+            format!("{} test success => same line", marks::SUCCESS)
         );
         assert_eq!(
             successln!("test successln"),
-            "\u{1b}[1;92m✅\u{1b}[0m test successln\n"
+            format!("{} test successln\n", marks::SUCCESS)
         );
         assert_eq!(
-            scopesuccess!("presuccess", "some formatting {}", 12.333 as f32),
-            "\u{1b}[2m[presuccess]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 12.333"
+            format!("{} => {}", scopesuccess!("presuccess", "some formatting {}", 12.333), "same line"),
+            format!("\u{1b}[2m[presuccess]\u{1b}[0m {} some formatting 12.333 => same line", marks::SUCCESS)
         );
         assert_eq!(
             scopesuccessln!("presuccessln", "some formatting {}", 123),
-            "\u{1b}[2m[presuccessln]\u{1b}[0m \u{1b}[1;92m✅\u{1b}[0m some formatting 123\n"
+            format!("\u{1b}[2m[presuccessln]\u{1b}[0m {} some formatting 123\n", marks::SUCCESS)
         );
     }
 
@@ -486,19 +492,39 @@ mod tests {
     fn error() {
         assert_eq!(
             error!("test error"),
-            "\u{1b}[1;91m❌\u{1b}[0m test error"
+            format!("{} test error", marks::ERROR)
         );
         assert_eq!(
             errorln!("test errorln"),
-            "\u{1b}[1;91m❌\u{1b}[0m test errorln\n"
+            format!("{} test errorln\n", marks::ERROR)
         );
         assert_eq!(
             scopeerror!("preerror", "some formatting {}", 12.333 as f32),
-            "\u{1b}[2m[preerror]\u{1b}[0m \u{1b}[1;91m❌\u{1b}[0m some formatting 12.333"
+            format!("\u{1b}[2m[preerror]\u{1b}[0m {} some formatting 12.333", marks::ERROR)
         );
         assert_eq!(
             scopeerrorln!("preerrorln", "some formatting {}", 123),
-            "\u{1b}[2m[preerrorln]\u{1b}[0m \u{1b}[1;91m❌\u{1b}[0m some formatting 123\n"
+            format!("\u{1b}[2m[preerrorln]\u{1b}[0m {} some formatting 123\n", marks::ERROR)
+        );
+    }
+
+    #[test]
+    fn wait() {
+        assert_eq!(
+            wait!("test wait"),
+            format!("{} test wait", marks::WAIT)
+        );
+        assert_eq!(
+            waitln!("test waitln"),
+            format!("{} test waitln\n", marks::WAIT)
+        );
+        assert_eq!(
+            scopewait!("prewait", "some formatting {}", 12.333 as f32),
+            format!("\u{1b}[2m[prewait]\u{1b}[0m \u{1b}[1;35m⌛\u{1b}[0m some formatting 12.333")
+        );
+        assert_eq!(
+            scopewaitln!("prewaitln", "some formatting {}", 123),
+            format!("\u{1b}[2m[prewaitln]\u{1b}[0m \u{1b}[1;35m⌛\u{1b}[0m some formatting 123\n")
         );
     }
 }
