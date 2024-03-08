@@ -146,41 +146,121 @@ macro_rules! scopeinfoln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::INFO, $($arg)*) }
 }
 
+/// Prints warn log message to stderr without a new line.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// warn!("test warn"); // ⚠ test warn
+/// warn!("no more warnings {}", "i said"); // ⚠ no more warnings i said
+/// ```
 #[macro_export]
 macro_rules! warn {
     ($($arg:tt)*) => { custom!($crate::io::marks::WARN, $($arg)*) }
 }
 
+/// Prints warn log message to stderr with a new line.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// warnln!("You have not weared a mask"); // ⚠ You have not weared a mask
+/// warnln!("You have not sent {} dollars to you mom", 1000); // ⚠ You have not sent 1000 dollars to you mom
+/// ```
 #[macro_export]
 macro_rules! warnln {
     ($($arg:tt)*) => { customln!($crate::io::marks::WARN, $($arg)*) }
 }
 
+/// Prints log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopewarn!("driving", "computing the distance ... "); // [driving] ⚠ computing the distance ...
+/// scopewarn!("fixing", "fixing the problem ... "); // [fixing] ⚠ fixing the problem ...
+/// ```
 #[macro_export]
 macro_rules! scopewarn {
     ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::WARN, $($arg)*) }
 }
 
+/// Prints log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+/// ```
+/// use hand::*;
+///
+/// scopewarnln!("car", "the problem fixed"); // [car] ⚠ the problem fixed
+/// scopewarnln!("boilerplate", "your code has too many boilerplate"); // [boilerplate] ⚠ your code has too many boilerplate
+/// ```
 #[macro_export]
 macro_rules! scopewarnln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::WARN, $($arg)*) }
 }
 
+/// Prints a log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// success!("Operation successful"); // ✔ Operation successful
+/// success!("Data processed"); // ✔ Data processed
+/// ```
 #[macro_export]
 macro_rules! success {
     ($($arg:tt)*) => { custom!($crate::io::marks::SUCCESS, $($arg)*) }
 }
 
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// successln!("Task completed"); // ✔ Task completed
+/// successln!("Process finished"); // ✔ Process finished
+/// ```
 #[macro_export]
 macro_rules! successln {
     ($($arg:tt)*) => { customln!($crate::io::marks::SUCCESS, $($arg)*) }
 }
 
+/// Prints a log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopesuccess!("Installing", "Completed in {} secs.", 9);
+/// waitln!("Reboot in 3 seconds");
+/// // [Installing] ✔ Completed in 9 secs. ⌛ Reboot in 3 seconds
+/// ```
 #[macro_export]
 macro_rules! scopesuccess {
     ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::SUCCESS, $($arg)*) }
 }
 
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopesuccessln!("Deploy", "Finished in {} secs.", 9); // [Deploy] ✔ Finished in 9 secs.
+/// scopesuccessln!("Cleaning up", "Finished"); // [Cleaning up] ✔ Finished
+/// ```
 #[macro_export]
 macro_rules! scopesuccessln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::SUCCESS, $($arg)*) }
@@ -191,16 +271,47 @@ macro_rules! error {
     ($($arg:tt)*) => { custom!($crate::io::marks::ERROR, $($arg)*) }
 }
 
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// errorln!("Critical error: {} {} seconds", "your pc will die in", 3); // ❌ Critical error: your pc will die in 3 seconds
+/// errorln!("Fatal error occurred"); // ❌ Fatal error occurred
+/// ```
 #[macro_export]
 macro_rules! errorln {
     ($($arg:tt)*) => { customln!($crate::io::marks::ERROR, $($arg)*) }
 }
 
+/// Prints a log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopeerror!("github.com", "Unable to fetch. Retrying ... ");
+/// successln!("Retrying successful")
+/// // [github.com] ❌ Unable to fetch. Retrying ... ✅ Retrying successful
+/// ```
 #[macro_export]
 macro_rules! scopeerror {
     ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::ERROR, $($arg)*) }
 }
 
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopeerrorln!("FATAL", "Your GPU died"); // [FATAL] ❌ Your GPU died
+/// scopeerrorln!("FATAL", "Your motherboard blow up"); // [FATAL] ❌ Your motherboard blow up
+/// ```
 #[macro_export]
 macro_rules! scopeerrorln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::ERROR, $($arg)*) }
@@ -228,8 +339,8 @@ macro_rules! wait {
 /// ```
 /// use hand::*;
 ///
-/// waitln!("This operation can take a while"); // [wait] ⌛ This operation can take a while
-/// waitln!("Fetching results"); // [fetching] ⌛ Fetching results
+/// waitln!("This operation can take a while"); // ⌛ This operation can take a while
+/// waitln!("Fetching results"); // ⌛ Fetching results
 /// ```
 #[macro_export]
 macro_rules! waitln {
@@ -259,8 +370,8 @@ macro_rules! scopewait {
 /// ```
 /// use hand::*;
 ///
-/// scopewaitln!("documenting", "Wait until Give me an Oscar will be done"); // [documenting] ⌛ Wait until Give me an Oscar will be done
-/// scopewaitln!("Testing", "Wait for the test to be done"); // [testing] ⌛ Wait for the test to be done
+/// scopewaitln!("Documenting", "Wait until Give me an Oscar will be done"); // [Documenting] ⌛ Wait until Give me an Oscar will be done
+/// scopewaitln!("Testing", "Wait for the test to be done"); // [Testing] ⌛ Wait for the test to be done
 /// ```
 #[macro_export]
 macro_rules! scopewaitln {
