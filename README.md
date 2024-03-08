@@ -28,7 +28,11 @@ fn main() {
     scopeerrorln!("critical", "Critical error: {}", error_msg);
 
     infoln!("Continuing in {} seconds", 3);
+    waitln!("Cooldown {} seconds", std::time::Duration::from_millis(3000).as_secs());
 }
+
 ```
-<img src="https://github.com/nomoreqwerty/hand/assets/72273722/ad717c13-0de2-4547-a5e1-b4fcf6cebd5f" alt="usage example" border-radius="3px">
+
+### Terminal output
+<img src="https://github.com/nomoreqwerty/hand/assets/72273722/7c86a4c6-44e2-49c8-a47f-4454b5b4d121" alt="usage example" border-radius="3px">
 
