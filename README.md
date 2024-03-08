@@ -34,5 +34,5 @@ fn main() {
 ```
 
 ### Terminal output
-<img src="https://github.com/nomoreqwerty/hand/assets/72273722/7c86a4c6-44e2-49c8-a47f-4454b5b4d121" alt="usage example" border-radius="3px">
+<img src="https://github.com/nomoreqwerty/hand/assets/72273722/7c86a4c6-44e2-49c8-a47f-4454b5b4d121" alt="usage example">
 
