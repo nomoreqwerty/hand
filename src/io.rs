@@ -3,6 +3,7 @@ pub mod marks {
     pub const WARN: &str = "\u{1b}[1;33m⚠️\u{1b}[0m";
     pub const ERROR: &str = "\u{1b}[1;91m❌\u{1b}[0m";
     pub const SUCCESS: &str = "\u{1b}[1;92m✅\u{1b}[0m";
+    pub const WAIT: &str = "\u{1b}[1;35m⌛\u{1b}[0m";
 }
 
 /// Prints log message to stderr with a custom head without new line.
@@ -205,9 +206,65 @@ macro_rules! scopeerrorln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::ERROR, $($arg)*) }
 }
 
+/// Prints a log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// wait!("Waiting for input"); // ⌛ Waiting for input
+/// wait!("Processing data"); // ⌛ Processing data
+/// ```
 #[macro_export]
 macro_rules! wait {
     ($($arg:tt)*) => { custom!($crate::io::marks::WAIT, $($arg)*) }
+}
+
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// waitln!("This operation can take a while"); // [wait] ⌛ This operation can take a while
+/// waitln!("Fetching results"); // [fetching] ⌛ Fetching results
+/// ```
+#[macro_export]
+macro_rules! waitln {
+    ($($arg:tt)*) => { customln!($crate::io::marks::WAIT, $($arg)*) }
+}
+
+/// Prints a log message to stderr without a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopewait!("reading config", "reading config ... ");
+/// successln!("done in {} secs", 13.578);
+/// // [reading config] ⌛ reading config ... ✅ done in 13.578 secs
+/// ```
+#[macro_export]
+macro_rules! scopewait {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::WAIT, $($arg)*) }
+}
+
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopewaitln!("documenting", "Wait until Give me an Oscar will be done"); // [documenting] ⌛ Wait until Give me an Oscar will be done
+/// scopewaitln!("Testing", "Wait for the test to be done"); // [testing] ⌛ Wait for the test to be done
+/// ```
+#[macro_export]
+macro_rules! scopewaitln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::WAIT, $($arg)*) }
 }
 
 #[cfg(test)]
