@@ -266,6 +266,16 @@ macro_rules! scopesuccessln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::SUCCESS, $($arg)*) }
 }
 
+/// Prints a log message to stderr with a new line, with a specified prefix.
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// error!("An error occurred"); // ❌ An error occurred
+/// error!("Invalid input"); // ❌ Invalid input
+/// ```
 #[macro_export]
 macro_rules! error {
     ($($arg:tt)*) => { custom!($crate::io::marks::ERROR, $($arg)*) }
