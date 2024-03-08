@@ -288,7 +288,7 @@ macro_rules! error {
 /// ```
 /// use hand::*;
 ///
-/// errorln!("Critical error: {} {} seconds", "your pc will die in", 3); // ❌ Critical error: your pc will die in 3 seconds
+/// errorln!("Critical error: {} {} seconds", "your pc will die in", 3); // ❌ Critical error your pc will die in 3 seconds
 /// errorln!("Fatal error occurred"); // ❌ Fatal error occurred
 /// ```
 #[macro_export]
