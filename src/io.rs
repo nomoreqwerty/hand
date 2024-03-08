@@ -1,6 +1,6 @@
 pub mod marks {
-    pub const INFO: &str = "\u{1b}[1;94mℹ \u{1b}[0m";
-    pub const WARN: &str = "\u{1b}[1;33m⚠ \u{1b}[0m";
+    pub const INFO: &str = "\u{1b}[1;94mℹ️\u{1b}[0m";
+    pub const WARN: &str = "\u{1b}[1;33m⚠️\u{1b}[0m";
     pub const ERROR: &str = "\u{1b}[1;91m❌\u{1b}[0m";
     pub const SUCCESS: &str = "\u{1b}[1;92m✅\u{1b}[0m";
 }
