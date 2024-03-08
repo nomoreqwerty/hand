@@ -1,4 +1,4 @@
-# 🗃️ A simple log library, similar to <a href="github.com/jesusprubio/leg">leg</a>, but with macros
+# 🗃️ A simple log library, similar to <a href="https://github.com/jesusprubio/leg">leg</a>, but with macros
 
 Thanks to <a href="github.com/jesusprubio">jesusprubio</a> for the idea
 
