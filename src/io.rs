@@ -1,14 +1,10 @@
 pub mod marks {
-    pub const INFO: &str = "\u{1b}[1;94mℹ️\u{1b}[0m";
-    pub const WARN: &str = "\u{1b}[1;33m⚠️\u{1b}[0m";
-    pub const ERROR: &str = "\u{1b}[1;91m❌\u{1b}[0m";
-    pub const SUCCESS: &str = "\u{1b}[1;92m✅\u{1b}[0m";
-    pub const WAIT: &str = "\u{1b}[1;35m⌛\u{1b}[0m";
     pub const INFO: &str = "ℹ️";
     pub const WARN: &str = "⚠️";
     pub const ERROR: &str = "❌";
     pub const SUCCESS: &str = "✅";
     pub const WAIT: &str = "⌛";
+    pub const INPUT: &str = "⌨️";
 }
 
 /// Prints log message to stderr with a custom head without new line.
@@ -391,6 +387,63 @@ macro_rules! scopewait {
 #[macro_export]
 macro_rules! scopewaitln {
     ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::WAIT, $($arg)*) }
+}
+
+
+/// Outputs an input log message with the '⌨️' prefix to stderr without a linebreak
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// input!("Enter your name: "); // ⌨️ Enter your name:
+/// input!("enter the folder path\n> "); // ⌨️ enter the folder path
+///                                      // >
+/// ```
+#[macro_export]
+macro_rules! input {
+    ($($arg:tt)*) => { custom!($crate::io::marks::INPUT, $($arg)*) }
+}
+
+/// Outputs an input log message with the '⌨️' prefix to stderr with a linebreak
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// inputln!("Enter your age"); // ⌨️ Enter your age
+/// inputln!("How many cores to use? > "); // ⌨️ How many cores to use? >
+/// ```
+#[macro_export]
+macro_rules! inputln {
+    ($($arg:tt)*) => { customln!($crate::io::marks::INPUT, $($arg)*) }
+}
+
+/// Outputs an input log message with the '⌨️' prefix and the specified scope to stderr without a linebreak
+///
+/// # Examples
+///
+/// ```
+/// use hand::*;
+///
+/// scopeinput!("Authentication", "Password: "); // [Authentication] ⌨️ Password:
+/// scopesuccessln!("Authentication", "Successfully logged in"); // [Authentication] ✅ Successfully logged in
+/// ```
+#[macro_export]
+macro_rules! scopeinput {
+    ($prefix:expr, $($arg:tt)*) => { scopecustom!($prefix, $crate::io::marks::INPUT, $($arg)*) }
+}
+
+/// Outputs an input log message with the '⌨️' prefix and the specified scope to stderr with a linebreak
+///
+/// # Examples
+///
+/// **¯\\_(ツ)_/¯**
+#[macro_export]
+macro_rules! scopeinputln {
+    ($prefix:expr, $($arg:tt)*) => { scopecustomln!($prefix, $crate::io::marks::INPUT, $($arg)*) }
 }
 
 #[cfg(test)]
