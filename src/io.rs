@@ -439,7 +439,7 @@ mod tests {
             format!("{} test infoln\n", marks::INFO)
         );
         assert_eq!(
-            scopeinfo!("preinfo", "some formatting {}", 12.333 as f32),
+            scopeinfo!("preinfo", "some formatting {}", 12.333),
             format!("\u{1b}[2m[preinfo]\u{1b}[0m {} some formatting 12.333", marks::INFO)
         );
         assert_eq!(
@@ -459,7 +459,7 @@ mod tests {
             format!("{} test warnln\n", marks::WARN)
         );
         assert_eq!(
-            scopewarn!("prewarn", "some formatting {}", 12.333 as f32),
+            scopewarn!("prewarn", "some formatting {}", 12.333 ),
             format!("\u{1b}[2m[prewarn]\u{1b}[0m {} some formatting 12.333", marks::WARN)
         );
         assert_eq!(
@@ -499,7 +499,7 @@ mod tests {
             format!("{} test errorln\n", marks::ERROR)
         );
         assert_eq!(
-            scopeerror!("preerror", "some formatting {}", 12.333 as f32),
+            scopeerror!("preerror", "some formatting {}", 12.333 ),
             format!("\u{1b}[2m[preerror]\u{1b}[0m {} some formatting 12.333", marks::ERROR)
         );
         assert_eq!(
@@ -519,8 +519,8 @@ mod tests {
             format!("{} test waitln\n", marks::WAIT)
         );
         assert_eq!(
-            scopewait!("prewait", "some formatting {}", 12.333 as f32),
-            format!("\u{1b}[2m[prewait]\u{1b}[0m \u{1b}[1;35m⌛\u{1b}[0m some formatting 12.333")
+            scopewait!("prewait", "some formatting {}", 12.333 ),
+            format!("\u{1b}[2m[prewait]\u{1b}[0m {} some formatting 12.333", marks::WAIT)
         );
         assert_eq!(
             scopewaitln!("prewaitln", "some formatting {}", 123),
