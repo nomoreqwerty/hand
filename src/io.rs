@@ -4,6 +4,11 @@ pub mod marks {
     pub const ERROR: &str = "\u{1b}[1;91m❌\u{1b}[0m";
     pub const SUCCESS: &str = "\u{1b}[1;92m✅\u{1b}[0m";
     pub const WAIT: &str = "\u{1b}[1;35m⌛\u{1b}[0m";
+    pub const INFO: &str = "ℹ️";
+    pub const WARN: &str = "⚠️";
+    pub const ERROR: &str = "❌";
+    pub const SUCCESS: &str = "✅";
+    pub const WAIT: &str = "⌛";
 }
 
 /// Prints log message to stderr with a custom head without new line.
