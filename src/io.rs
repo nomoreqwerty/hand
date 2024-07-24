@@ -480,6 +480,11 @@ mod tests {
         print!("{} => same line\n", scopeerror!("scope", "scopeerror"));
         print!("{}", scopeerrorln!("scope", "scopeerrorln"));
 
+        print!("{} => same line\n", input!("input"));
+        print!("{}", inputln!("inputln"));
+        print!("{} => same line\n", scopeinput!("scope", "scopeinput"));
+        print!("{}", scopeinputln!("scope", "scopeinputln"));
+
         println!("\n");
 
         // // remove dashes to show the output
@@ -582,7 +587,27 @@ mod tests {
         );
         assert_eq!(
             scopewaitln!("prewaitln", "some formatting {}", 123),
-            format!("\u{1b}[2m[prewaitln]\u{1b}[0m \u{1b}[1;35m⌛\u{1b}[0m some formatting 123\n")
+            format!("\u{1b}[2m[prewaitln]\u{1b}[0m {} some formatting 123\n", marks::WAIT)
+        );
+    }
+    
+    #[test]
+    fn input() {
+        assert_eq!(
+            input!("test input: "),
+            format!("{} test input: ", marks::INPUT)
+        );
+        assert_eq!(
+            inputln!("test inputln\n> "),
+            format!("{} test inputln\n> ", marks::INPUT)
+        );
+        assert_eq!(
+            scopeinput!("preinput", "some formatting {}", 12.333 ),
+            format!("\u{1b}[2m[preinput]\u{1b}[0m {} some formatting 12.333", marks::INPUT)
+        );
+        assert_eq!(
+            scopeinputln!("preinputln", "some formatting {}", 123),
+            format!("\u{1b}[2m[preinputln]\u{1b}[0m {} some formatting 123\n", marks::INPUT)
         );
     }
 }
